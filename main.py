@@ -1,11 +1,14 @@
 import streamlit as st
 import pandas as pd
 from config import API_Key
+from dotenv import load_dotenv
 import os
 import openai
 
 # openai api intergration
-openai.api_key = API_Key
+load_dotenv()
+openai.api_key = os.getenv("$OPENAI_API_KEY")
+st.write(os.getenv("OPENAI_API_KEY"))
 
 # basic streamlit design
 st.title('Testing design')
@@ -19,6 +22,7 @@ gpt_response = openai.Completion.create(
   temperature=1.5
 )
 
+# image generation
 image = openai.Image.create(
   prompt=user_input,
   n=1,
