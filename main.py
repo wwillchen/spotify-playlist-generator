@@ -14,5 +14,3 @@ st.write('the user input is', user_input)
 # openai api intergration
 
 # takes user prompt into gpt
-
-
