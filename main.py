@@ -1,5 +1,6 @@
 import streamlit as st
-import pandas as pd
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
 import os
 import openai
@@ -8,8 +9,23 @@ import openai
 load_dotenv()
 openai.api_key = os.getenv('API_Key')
 
-st.title(':green[Spotify playlist generator]')
+def create_playlist(pl_name):
+    # Create a new playlist
+    playlist_name = pl_name # GET THIS FROM CHAT GPT
+    username = '31koa6e34uj5ztlwnzkl6obqxqom'
+    playlist = sp.user_playlist_create(username, playlist_name)
 
+    # Add tracks to the playlist
+    track_uris = song_URIs
+    sp.playlist_add_items(playlist['id'], track_uris)
+
+    # Get link for playlist we just created
+    playlist_link = playlist['external_urls']['spotify']
+    print("Playlist link:", playlist_link)
+
+# web layout
+st.title(':green[Spotify playlist generator]')
+# allows user to narrow song search
 with st.sidebar:
     Mood = st.slider(
         'Around what would you rate your mood from 0 (Sad/Somber) to 1 (Happy/Cheerful)?',
@@ -37,15 +53,14 @@ with st.sidebar:
     else:
         st.write('Please save a configuration')
         
-
 user_input = st.text_input('What would you like to listen to?')
 
 # takes user prompt into gpt
 gpt_response = openai.Completion.create(
   model="text-davinci-003",
-  prompt="provide a list of spotify track URI related to" + user_input,
+  prompt="provide a list of spotify track URI related to" + user_input + "then provide me a name for the playlist",
   max_tokens=1000,
-  temperature=1.5
+  temperature=1
 )
 
 # image generation
@@ -60,5 +75,11 @@ st.image(
     image_url,
     )
 
-song_URIs = gpt_response['choices'][0]['text'].splitlines()
+playlist = gpt_response['choices'][0]['text'].splitlines()
+song_URIs = playlist[:-1]
+playlist_title = playlist[-1]
 
+# Authenticate the user
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id='9fae11f38f7f4807bcf428baaf5ac0fc', client_secret='5954437d49ff46b8b38845077ce7a198', redirect_uri='http://localhost:8888/callback', scope='playlist-modify-public'))
+
+create_playlist(playlist_title)
