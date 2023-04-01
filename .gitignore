@@ -1,1 +1,3 @@
-/config.py
+# dotenv environment variables
+.env
+.env.test

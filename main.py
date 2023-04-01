@@ -1,14 +1,12 @@
 import streamlit as st
 import pandas as pd
-from config import API_Key
 from dotenv import load_dotenv
 import os
 import openai
 
 # openai api intergration
 load_dotenv()
-openai.api_key = os.getenv("$OPENAI_API_KEY")
-st.write(os.getenv("OPENAI_API_KEY"))
+openai.api_key = os.getenv('API_Key')
 
 # basic streamlit design
 st.title('Testing design')
