@@ -16,7 +16,7 @@ user_input = st.text_input('enter a user_input')
 gpt_response = openai.Completion.create(
   model="text-davinci-003",
   prompt="provide a spotify song list for" + user_input,
-  max_tokens=1000,
+  max_tokens=500,
   temperature=1.5
 )
 
