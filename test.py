@@ -21,7 +21,7 @@ with st.sidebar:
         st.write('We will try to find music that matches your preferences:')
         st.write('Mood: ', Mood)
         st.write('Tempo: ', Tempo)
-        st.write('Type: ', options, status, " music")
+        st.write('Type: ', options, status, "music")
         Mud = Mood
         Tump = Tempo
         Stump = status
@@ -43,7 +43,7 @@ st.write('boo boo', user_input)
 
 
 
-
+#Example code
 
 # #TAKE INPUT 
 
