@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from config import API_Key
+import config 
 import os
 import openai
 
