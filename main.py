@@ -1,12 +1,10 @@
 import streamlit as st
 import pandas as pd
-from config import API_Key
 import os
 import openai
 
 # openai api intergration
-openai.api_key = API_Key
-
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # basic streamlit design
 st.title('Testing design')
@@ -20,4 +18,4 @@ gpt_response = openai.Completion.create(
   temperature=1.5
 )
 
-st.write(gpt_response)
+st.write(gpt_response['choices'][0]['text'])
