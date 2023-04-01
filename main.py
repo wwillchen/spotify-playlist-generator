@@ -8,10 +8,7 @@ import openai
 load_dotenv()
 openai.api_key = os.getenv('API_Key')
 
-# basic streamlit design
-import streamlit as st
-
-st.title('AI Spotify playlist generator')
+st.title(':green[Spotify playlist generator]')
 
 with st.sidebar:
     Mood = st.slider(
